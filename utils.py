@@ -1,4 +1,3 @@
-import copy
 import json
 import pandas as pd
 
@@ -11,14 +10,23 @@ def get_raw_machines_data_from_json(json_path: str) -> list:
         for os in subdoc:
             subsubdoc = subdoc[os]
             for instanceType in subsubdoc:
+                major, minor = instanceType.split('.')
+
                 subsubsubdoc = subsubdoc[instanceType]
-                machine = copy.deepcopy(subsubsubdoc)
-                machine['region'] = region
-                machine['os'] = os
-                machine['instanceType'] = instanceType
-                machine['major'], machine['minor'] = machine['instanceType'].split('.')
+
+                machine = {
+                    'interruption_rate': subsubsubdoc['r'],
+                    'discount': subsubsubdoc['s'],
+                    'region': region,
+                    'os': os,
+                    'instanceType': instanceType,
+                    'major': major,
+                    'minor': minor
+                }
+
                 for attr in doc['instance_types'][instanceType]:
                     machine[attr] = doc['instance_types'][instanceType][attr]
+
                 machines.append(machine)
     return machines
 
@@ -28,7 +36,8 @@ def get_machines_df(json_path: str) -> pd.DataFrame:
 
     df = pd.DataFrame(machines)
     df = df.astype({
-        's': int,
+        'interruption_rate': int,
+        'discount': int,
         'region': 'category',
         'os': 'category',
         'instanceType': 'category',

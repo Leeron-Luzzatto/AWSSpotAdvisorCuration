@@ -2,7 +2,7 @@ from datetime import date
 from urllib import request
 import os
 
-from abc import ABC, abstractmethod, abstractproperty
+from abc import ABC, abstractmethod
 
 
 class AbstractAwsDataLoader(ABC):

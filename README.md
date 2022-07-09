@@ -2,8 +2,8 @@
 
 # Overview
 
-This repository contains a script to extract Spot Advisor data from AWS. 
-when this scripts run it checks if new data is available through AWS API and if so it saves it in json format with a time stamp in the file's name.
+This repository contains a script to extract Spot Advisor data and the Spot-Price data from AWS. 
+when this scripts run it checks if a new data is available through AWS API and if so it saves it in json format with a time stamp in the file's name.
 
 This repository also contains some utils functions for parsing the json files to pandas data frame.
 

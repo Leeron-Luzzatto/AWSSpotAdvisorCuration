@@ -35,10 +35,10 @@ class AbstractAwsDataLoader(ABC):
             with open(new_data_file_path, 'w') as new_data_file:
                 new_data_file.write(new_data)
 
-            print("new data file was added successfully")
+            print(f"new data file was added successfully: {new_data_file_path}")
 
         else:
-            print("no new data file was found")
+            print(f"no new data file was found in {self.url}")
 
     @staticmethod
     def transform_response(response: str):
